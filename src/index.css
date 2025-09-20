@@ -1,0 +1,14 @@
+@import "tailwindcss";
+@plugin "daisyui";
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0px;
+  padding: 0px;
+  font-family: sans-serif;
+  font-size: 10px;
+  height: 100%;
+}
