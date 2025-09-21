@@ -48,7 +48,7 @@ const Login = () => {
     return (
         <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-800 via-purple-700 to-black p-4">
             <div className="xs:max-w-xs sm:min-w-xs  xl:min-w-md bg-white/10 backdrop-blur-xl rounded-2xl shadow-2xl p-8">
-                <h2 className="text-2xl font-bold text-center text-white mb-6">
+                <h2 className="text-xl sm:text-2xl xl:text-3xl font-bold text-center text-white mb-6">
                     Welcome Back
                 </h2>
 
@@ -99,13 +99,20 @@ const Login = () => {
                     <button
                         type="submit"
                         disabled={loading}
-                        className="w-full py-2 px-4 bg-indigo-600 hover:bg-indigo-700 disabled:bg-gray-500 rounded-lg text-white font-semibold shadow-md transition transform hover:scale-105"
+                        className="w-full flex justify-center items-center gap-2 py-2 px-4 bg-indigo-600 hover:bg-indigo-700 disabled:bg-gray-500 rounded-lg text-white font-semibold shadow-md transition transform hover:scale-105"
                     >
-                        {loading ? "Logging in..." : "Login"}
+                        {loading ? (
+                            <>  Logging in
+                                <span className="loading loading-spinner loading-sm sm:loading-md lg:loading-lg "></span>
+                            </>
+                        ) : (
+                            <span className="text-xs sm:text-sm 2xl:text-base">Login</span>
+                        )}
                     </button>
+
                 </form>
 
-                <p className="text-gray-300 text-sm text-center mt-4">
+                <p className="text-gray-300 text-xs sm:text-sm text-center mt-4">
                     Don’t have an account?{" "}
                     <a href="/" className="text-white font-bold hover:underline">
                         Register

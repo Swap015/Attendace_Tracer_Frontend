@@ -40,7 +40,7 @@ const Register = () => {
                 </h2>
 
                 <form onSubmit={handleSubmit} className="space-y-4">
-                    {/* Name */}
+
                     <div className="relative">
                         <FaUser className="absolute top-3 left-3 text-white" />
                         <input
@@ -54,7 +54,7 @@ const Register = () => {
                         />
                     </div>
 
-                    {/* Email */}
+
                     <div className="relative">
                         <FaEnvelope className="absolute top-3 left-3 text-white" />
                         <input
@@ -68,7 +68,6 @@ const Register = () => {
                         />
                     </div>
 
-                    {/* Password */}
                     <div className="relative">
                         <FaLock className="absolute top-3 left-3 text-white" />
                         <input
@@ -82,7 +81,7 @@ const Register = () => {
                         />
                     </div>
 
-                    {/* Role */}
+
                     <div className="relative">
                         <FaUserShield className="absolute top-3 left-3 text-white" />
                         <select
@@ -96,14 +95,21 @@ const Register = () => {
                         </select>
                     </div>
 
-                    {/* Submit Button */}
                     <button
                         type="submit"
                         disabled={loading}
-                        className="w-full py-2 px-4 bg-purple-600 hover:bg-purple-700 disabled:bg-gray-500 rounded-lg text-white font-semibold shadow-md"
+                        className="w-full flex justify-center items-center gap-2 py-2 px-4 bg-purple-600 hover:bg-purple-700 disabled:bg-gray-500 rounded-lg text-white font-semibold shadow-md"
                     >
-                        {loading ? "Registering..." : "Register"}
+                        {loading ? (
+                            <>Registering
+                                <span className="loading loading-spinner loading-sm sm:loading-md lg:loading-lg"></span>
+                    
+                            </>
+                        ) : (
+                            <span className="text-xs sm:text-sm 2xl:text-base ">Register</span>
+                        )}
                     </button>
+
                 </form>
 
                 <p className="text-gray-300 text-sm text-center mt-4">

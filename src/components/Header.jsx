@@ -27,9 +27,9 @@ function Header() {
 
     return (
         <header className="bg-white/10 backdrop-blur-lg shadow-lg sticky top-0 z-50 border-b border-white/20">
-            <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div className="max-w-7xl mx-auto px-6 py-3 flex justify-between items-center">
 
-                <h2 className="text-2xl font-bold text-indigo-100 tracking-wide">
+                <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-indigo-100 tracking-wide">
                     WorkTrace
                 </h2>
 
@@ -39,7 +39,7 @@ function Header() {
                         <>
                             <button
                                 onClick={handleLogout}
-                                className="ml-4 px-4 py-2 bg-indigo-600 text-white font-semibold rounded-lg shadow hover:bg-indigo-700 transition"
+                                className="ml-4 px-4 py-2 bg-indigo-600 text-white font-semibold rounded-lg shadow hover:bg-indigo-700 transition text-xs xl:text-sm"
                             >
                                 Logout
                             </button>
@@ -47,9 +47,10 @@ function Header() {
                             <div className="flex items-center space-x-2">
                                 <FaUserCircle className="text-white text-xl" />
                                 <span className="text-white font-semibold text-xs">
-                                    {user?.name?.slice(0, 4)}
+                                    {user?.name?.split(" ")[0]}
                                 </span>
                             </div>
+
                         </>
                     )}
                 </nav>
@@ -67,28 +68,31 @@ function Header() {
 
 
             {menuOpen && (
-                <div className="md:hidden bg-white/10 backdrop-blur-lg border-t border-white/20">
-                    <div className="flex flex-col space-y-3 px-6 py-4">
+                <div className="md:hidden bg-gradient-to-r from-indigo-900/80 to-purple-800/80 backdrop-blur-lg border-t border-white/20">
+                    <div className="flex flex-col items-center space-y-3 px-6 py-5">
 
                         {!loading && user && (
                             <>
-                                <span className="text-white font-semibold bg-indigo-500/20 px-3 py-1 rounded-full shadow-sm">
-                                    {user?.name?.slice(0, 4)}
+                                <span className="text-white text-sm font-semibold bg-indigo-500/30 px-4 py-2 rounded-full shadow-md tracking-wide">
+                                    {user?.name?.split(" ")[0]}
                                 </span>
+
                                 <button
                                     onClick={() => {
                                         handleLogout();
                                         setMenuOpen(false);
                                     }}
-                                    className="mt-2 px-4 py-2 bg-indigo-600 text-white font-semibold rounded-lg shadow hover:bg-indigo-700 transition"
+                                    className="w-full max-w-[160px] py-2 bg-gradient-to-r from-red-500 to-red-600 text-white text-sm font-bold rounded-full shadow-md  hover:from-red-600 hover:to-red-700 "
                                 >
                                     Logout
                                 </button>
                             </>
                         )}
+
                     </div>
                 </div>
             )}
+
         </header>
     );
 }
