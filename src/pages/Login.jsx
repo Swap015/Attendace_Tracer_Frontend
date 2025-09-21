@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { FaEnvelope, FaLock, FaUserShield } from "react-icons/fa";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import UserContext from "../components/context/UserContext";
 
 const Login = () => {
     const [formData, setFormData] = useState({
@@ -11,6 +13,9 @@ const Login = () => {
     });
 
     const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
+    const { setUser } = useContext(UserContext);
+
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -22,15 +27,19 @@ const Login = () => {
 
         try {
             const res = await axios.post("http://localhost:8000/api/user/login", formData, {
-                withCredentials: true, 
+                withCredentials: true,
             });
 
-            toast.success("✅ Login Successful!");
-            console.log("Tokens:", res.data); 
-
+            toast.success(" Login Successful!");
+            setUser(res.data);
             setFormData({ email: "", password: "", role: "employee" });
+            if (res.data.role === "admin") {
+                navigate("/admin-dashboard");
+            } else {
+                navigate("/employee-dashboard");
+            }
         } catch (err) {
-            toast.error(err.response?.data?.message || "❌ Login Failed");
+            toast.error(err.response?.data?.message || " Login Failed");
         } finally {
             setLoading(false);
         }
@@ -44,7 +53,7 @@ const Login = () => {
                 </h2>
 
                 <form onSubmit={handleSubmit} className="space-y-4">
-                    {/* Email */}
+
                     <div className="relative">
                         <FaEnvelope className="absolute top-3 left-3 text-white" />
                         <input
@@ -58,7 +67,7 @@ const Login = () => {
                         />
                     </div>
 
-                    {/* Password */}
+
                     <div className="relative">
                         <FaLock className="absolute top-3 left-3 text-white" />
                         <input
@@ -72,7 +81,7 @@ const Login = () => {
                         />
                     </div>
 
-                    {/* Role */}
+
                     <div className="relative">
                         <FaUserShield className="absolute top-3 left-3 text-white" />
                         <select
@@ -86,7 +95,7 @@ const Login = () => {
                         </select>
                     </div>
 
-                    {/* Submit Button */}
+
                     <button
                         type="submit"
                         disabled={loading}
