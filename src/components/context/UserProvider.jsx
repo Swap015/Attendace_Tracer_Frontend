@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
 import UserContext from "./UserContext";
+import api from "../../api/axios.js";
 
 const UserProvider = ({ children }) => {
     const [user, setUser] = useState(null);
@@ -9,9 +9,7 @@ const UserProvider = ({ children }) => {
 
     const fetchUser = async () => {
         try {
-            const res = await axios.get("http://localhost:8000/api/user/me", {
-                withCredentials: true,
-            });
+            const res = await api.get("/user/me");
             setUser(res.data);
         } catch {
             setUser(null);

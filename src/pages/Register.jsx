@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { FaUser, FaEnvelope, FaLock, FaUserShield } from "react-icons/fa";
-import axios from "axios";
 import { toast } from "react-toastify";
+import api from "../api/axios";
 
 const Register = () => {
     const [formData, setFormData] = useState({
@@ -22,7 +22,7 @@ const Register = () => {
         setLoading(true);
 
         try {
-            await axios.post("http://localhost:8000/api/user/register", formData);
+            await api.post("/user/register", formData);
             toast.success(" Registered Successfully!");
             setFormData({ name: "", email: "", password: "", role: "employee" });
         } catch {

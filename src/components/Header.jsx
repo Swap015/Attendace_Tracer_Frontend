@@ -1,10 +1,10 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import axios from "axios";
 import { FiMenu, FiX } from "react-icons/fi";
 import { FaUserCircle } from "react-icons/fa";
 import { useContext, useState } from "react";
 import UserContext from "./context/UserContext.jsx";
 import { toast } from "react-toastify";
+import api from "../api/axios.js";
 
 
 function Header() {
@@ -15,7 +15,7 @@ function Header() {
 
     const handleLogout = async () => {
         try {
-            await axios.post("http://localhost:8000/api/user/logout", {}, { withCredentials: true });
+            await api.post("/user/logout");
             setUser(null);
             navigate("/login");
         } catch {
