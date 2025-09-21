@@ -103,7 +103,6 @@ const Register = () => {
                         {loading ? (
                             <>Registering
                                 <span className="loading loading-spinner loading-sm sm:loading-md lg:loading-lg"></span>
-                    
                             </>
                         ) : (
                             <span className="text-xs sm:text-sm 2xl:text-base ">Register</span>

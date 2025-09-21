@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 
 
 const api = axios.create({
-    baseURL: "http://localhost:8000/api",
+    baseURL: "https://attendace-tracer-backend.onrender.com/api",
     withCredentials: true,
 });
 
