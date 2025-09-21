@@ -10,6 +10,7 @@ import AdminDashboard from "./pages/AdminDashboard";
 import About from "./pages/static-pages/About";
 import Contact from "./pages/static-pages/Contact";
 import UserProvider from "./components/context/UserProvider.jsx";
+import NotFound from "./pages/static-pages/NotFound.jsx";
 
 function App() {
 
@@ -31,6 +32,8 @@ function App() {
                 <Route path="/about" element={<About />} />
                 <Route path="/employee-dashboard" element={<EmployeeDashboard />} />
                 <Route path="/admin-dashboard" element={<AdminDashboard />} />
+
+                <Route path="*" element={<NotFound />} />
 
               </Routes>
             </div>

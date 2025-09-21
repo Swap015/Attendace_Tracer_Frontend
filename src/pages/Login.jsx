@@ -36,8 +36,8 @@ const Login = () => {
             } else {
                 navigate("/employee-dashboard");
             }
-        } catch (err) {
-            toast.error(err.response?.data?.message || " Login Failed");
+        } catch {
+            toast.error(" Login Failed");
         } finally {
             setLoading(false);
         }
