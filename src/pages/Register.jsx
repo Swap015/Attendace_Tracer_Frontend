@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { FaUser, FaEnvelope, FaLock, FaUserShield } from "react-icons/fa";
 import { toast } from "react-toastify";
-import api from "../api/axios";
+import api from "../api/axios.js";
 
 const Register = () => {
     const [formData, setFormData] = useState({

@@ -1,6 +1,6 @@
 
 import axios from "axios";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
 
 
 const api = axios.create({
@@ -17,20 +17,20 @@ api.interceptors.response.use(
             return Promise.reject(error);
         }
 
-        if (error.response?.status === 401 && !originalRequest._retry) {
-            originalRequest._retry = true;
+        // if (error.response?.status === 401 && !originalRequest._retry) {
+        //     originalRequest._retry = true;
 
-            try {
+        //     try {
 
-                await api.post("/user/refresh");
+        //         await api.post("/user/refresh");
 
-                return api(originalRequest);
-            } catch (refreshError) {
-                toast.error("Session expired. Please login again.");
-                window.location.href = "/login";
-                return Promise.reject(refreshError);
-            }
-        }
+        //         return api(originalRequest);
+        //     } catch (refreshError) {
+        //         toast.error("Session expired. Please login again.");
+        //         window.location.href = "/login";
+        //         return Promise.reject(refreshError);
+        //     }
+        // }
 
         return Promise.reject(error);
     }

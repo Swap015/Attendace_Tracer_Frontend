@@ -3,7 +3,7 @@ import { FaEnvelope, FaLock, FaUserShield } from "react-icons/fa";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import UserContext from "../components/context/UserContext";
-import api from "../api/axios";
+import api from "../api/axios.js";
 
 const Login = () => {
     const [formData, setFormData] = useState({
