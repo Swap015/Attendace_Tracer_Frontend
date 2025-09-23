@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 import UserContext from "./UserContext.jsx";
 import api from "../../api/axios.js";
-import { useNavigate } from "react-router-dom";
+
 
 
 const UserProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
-    const navigate = useNavigate();
+
 
     const fetchUser = async () => {
         try {
@@ -24,7 +24,6 @@ const UserProvider = ({ children }) => {
         try {
             await api.post("/user/logout", null);
             setUser(null);
-            navigate("/login");
         } catch (err) {
             console.error("Logout failed", err);
         }
