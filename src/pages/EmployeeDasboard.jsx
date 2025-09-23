@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { format } from "date-fns";
-import axios from "axios";
+import api from "../api/axios";
+
 
 const EmployeeDashboard = () => {
     const [attendance, setAttendance] = useState([]);
@@ -22,7 +23,7 @@ const EmployeeDashboard = () => {
 
     const fetchAttendance = async () => {
         try {
-            const res = await axios.get("http://localhost:8000/api/attendance/myAttendance", { withCredentials: true });
+            const res = await api.get("/attendance/myAttendance");
             setAttendance(res.data.records);
         } catch {
             toast.error("Error fetching attendance");
@@ -31,7 +32,7 @@ const EmployeeDashboard = () => {
 
     const fetchLeaves = async () => {
         try {
-            const res = await axios.get("http://localhost:8000/api/leave/myLeaves", { withCredentials: true });
+            const res = await api.get("/leave/myLeaves");
             setLeaves(res.data.leaves);
         } catch {
             toast.error("Error fetching leaves");
@@ -41,7 +42,7 @@ const EmployeeDashboard = () => {
     const handleMarkAttendance = async () => {
         try {
             setLoading(true);
-            const res = await axios.post("http://localhost:8000/api/attendance/mark", null, { withCredentials: true });
+            const res = await api.post("/attendance/mark", null);
             toast.success(res.data.msg);
             fetchAttendance();
         } catch (err) {
@@ -55,8 +56,8 @@ const EmployeeDashboard = () => {
     const handleApplyLeave = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.post("http://localhost:8000/api/leave/applyForLeave",
-                leaveForm, { withCredentials: true }
+            const res = await api.post("/leave/applyForLeave",
+                leaveForm
             );
             toast.success(res.data.msg);
             setLeaveForm({ from: "", to: "", reason: "" });

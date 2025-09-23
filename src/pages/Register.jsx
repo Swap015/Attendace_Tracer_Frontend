@@ -1,7 +1,8 @@
-import axios from "axios";
+
 import { useState } from "react";
 import { FaUser, FaEnvelope, FaLock, FaUserShield } from "react-icons/fa";
 import { toast } from "react-toastify";
+import api from "../api/axios";
 
 
 const Register = () => {
@@ -39,10 +40,9 @@ const Register = () => {
         setLoading(true);
 
         try {
-            await axios.post(
-                "http://localhost:8000/api/user/register",
-                formData,
-                { withCredentials: true }
+            await api.post(
+                "/user/register",
+                formData
             );
             toast.success("Registered Successfully!");
             setFormData({ name: "", email: "", password: "", role: "employee" });

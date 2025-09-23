@@ -2,8 +2,8 @@ import { useState, useContext } from "react";
 import { FaEnvelope, FaLock, FaUserShield } from "react-icons/fa";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import UserContext from "../components/context/UserContext.jsx";
+import api from "../api/axios.js";
 
 const Login = () => {
     const { setUser } = useContext(UserContext);
@@ -17,10 +17,9 @@ const Login = () => {
         e.preventDefault();
         setLoading(true);
         try {
-            const res = await axios.post(
-                "http://localhost:8000/api/user/login",
-                formData,
-                { withCredentials: true }
+            const res = await api.post(
+                "/user/login",
+                formData
             );
 
             setUser(res.data);

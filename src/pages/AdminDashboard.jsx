@@ -1,6 +1,7 @@
-import axios from "axios";
+
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import api from "../api/axios";
 
 
 function AdminDashboard() {
@@ -10,7 +11,7 @@ function AdminDashboard() {
 
     const fetchLeaves = async () => {
         try {
-            const res = await axios.get("http://localhost:8000/api/leave/allLeaves", { withCredentials: true });
+            const res = await api.get("/leave/allLeaves",);
             setLeaves(res.data.leaves || res.data);
         } catch {
             toast.error("Failed to fetch leaves");
@@ -19,7 +20,7 @@ function AdminDashboard() {
 
     const fetchAttendance = async () => {
         try {
-            const res = await axios.get("http://localhost:8000/api/attendance/late", { withCredentials: true });
+            const res = await api.get("/attendance/late");
             setAttendance(res.data.records || []);
         } catch {
             toast.error("Failed to fetch attendance");
@@ -34,9 +35,9 @@ function AdminDashboard() {
 
     const updateStatus = async (leaveId, status) => {
         try {
-            await axios.put(
-                `http://localhost:8000/api/leave/status/${leaveId}`,
-                { status }, { withCredentials: true }
+            await api.put(
+                `/leave/status/${leaveId}`,
+                { status }
             );
             toast.success(`Leave ${status}`);
             fetchLeaves();
