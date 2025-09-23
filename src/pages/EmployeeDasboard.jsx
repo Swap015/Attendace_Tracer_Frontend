@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { format } from "date-fns";
-import api from "../api/axios";
+import axios from "axios";
 
 const EmployeeDashboard = () => {
     const [attendance, setAttendance] = useState([]);
@@ -22,7 +22,7 @@ const EmployeeDashboard = () => {
 
     const fetchAttendance = async () => {
         try {
-            const res = await api.get("/attendance/myAttendance");
+            const res = await axios.get("http://localhost:8000/api/attendance/myAttendance", { withCredentials: true });
             setAttendance(res.data.records);
         } catch {
             toast.error("Error fetching attendance");
@@ -31,7 +31,7 @@ const EmployeeDashboard = () => {
 
     const fetchLeaves = async () => {
         try {
-            const res = await api.get("/leave/myLeaves");
+            const res = await axios.get("http://localhost:8000/api/leave/myLeaves", { withCredentials: true });
             setLeaves(res.data.leaves);
         } catch {
             toast.error("Error fetching leaves");
@@ -41,7 +41,7 @@ const EmployeeDashboard = () => {
     const handleMarkAttendance = async () => {
         try {
             setLoading(true);
-            const res = await api.post("/attendance/mark");
+            const res = await axios.post("http://localhost:8000/api/attendance/mark", null, { withCredentials: true });
             toast.success(res.data.msg);
             fetchAttendance();
         } catch (err) {
@@ -55,9 +55,8 @@ const EmployeeDashboard = () => {
     const handleApplyLeave = async (e) => {
         e.preventDefault();
         try {
-            const res = await api.post(
-                "/leave/applyForLeave",
-                leaveForm
+            const res = await axios.post("http://localhost:8000/api/leave/applyForLeave",
+                leaveForm, { withCredentials: true }
             );
             toast.success(res.data.msg);
             setLeaveForm({ from: "", to: "", reason: "" });
@@ -207,7 +206,7 @@ const EmployeeDashboard = () => {
                             >
                                 <div>
                                     <p className="text-sm">📅 {l.from} → {l.to}</p>
-                                    <p className="text-xs text-gray-300 pt-2 pl-2">Reason: {l.reason}</p>
+                                    <p className="text-sm text-gray-300 pt-2 pl-2">Reason: {l.reason}</p>
                                 </div>
                                 <p
                                     className={`font-semibold self-center ${l.status === "approved"

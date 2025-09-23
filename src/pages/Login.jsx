@@ -1,43 +1,39 @@
-import { useContext, useState } from "react";
+import { useState, useContext } from "react";
 import { FaEnvelope, FaLock, FaUserShield } from "react-icons/fa";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import UserContext from "../components/context/UserContext";
-import api from "../api/axios.js";
+import axios from "axios";
+import UserContext from "../components/context/UserContext.jsx";
 
 const Login = () => {
-    const [formData, setFormData] = useState({
-        email: "",
-        password: "",
-        role: "employee",
-    });
-
+    const { setUser } = useContext(UserContext);
+    const [formData, setFormData] = useState({ email: "", password: "", role: "employee" });
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
-    const { setUser } = useContext(UserContext);
 
-
-    const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
-    };
+    const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
-
         try {
-            const res = await api.post("/user/login", formData);
+            const res = await axios.post(
+                "http://localhost:8000/api/user/login",
+                formData,
+                { withCredentials: true }
+            );
 
-            toast.success(" Login Successful!");
             setUser(res.data);
+
+            toast.success("Login Successful!");
+
             setFormData({ email: "", password: "", role: "employee" });
-            if (res.data.role === "admin") {
-                navigate("/admin-dashboard");
-            } else {
-                navigate("/employee-dashboard");
-            }
-        } catch {
-            toast.error(" Login Failed");
+
+            if (res.data.role === "admin") navigate("/admin-dashboard");
+            else navigate("/employee-dashboard");
+        } catch (err) {
+            console.error(err);
+            toast.error("Login Failed");
         } finally {
             setLoading(false);
         }
@@ -45,13 +41,12 @@ const Login = () => {
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-800 via-purple-700 to-black p-4">
-            <div className="xs:max-w-xs sm:min-w-xs  xl:min-w-md bg-white/10 backdrop-blur-xl rounded-2xl shadow-2xl p-8">
+            <div className="xs:max-w-xs sm:min-w-xs xl:min-w-md bg-white/10 backdrop-blur-xl rounded-2xl shadow-2xl p-8">
                 <h2 className="text-xl sm:text-2xl xl:text-3xl font-bold text-center text-white mb-6">
                     Welcome Back
                 </h2>
 
                 <form onSubmit={handleSubmit} className="space-y-4">
-
                     <div className="relative">
                         <FaEnvelope className="absolute top-3 left-3 text-white" />
                         <input
@@ -64,7 +59,6 @@ const Login = () => {
                             className="w-full pl-10 pr-3 py-2 rounded-lg bg-white/20 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-400"
                         />
                     </div>
-
 
                     <div className="relative">
                         <FaLock className="absolute top-3 left-3 text-white" />
@@ -79,7 +73,6 @@ const Login = () => {
                         />
                     </div>
 
-
                     <div className="relative">
                         <FaUserShield className="absolute top-3 left-3 text-white" />
                         <select
@@ -93,21 +86,20 @@ const Login = () => {
                         </select>
                     </div>
 
-
                     <button
                         type="submit"
                         disabled={loading}
                         className="w-full flex justify-center items-center gap-2 py-2 px-4 bg-indigo-600 hover:bg-indigo-700 disabled:bg-gray-500 rounded-lg text-white font-semibold shadow-md transition transform hover:scale-105"
                     >
                         {loading ? (
-                            <>  Logging in
-                                <span className="loading loading-spinner loading-sm sm:loading-md lg:loading-lg "></span>
+                            <>
+                                Logging in
+                                <span className="loading loading-spinner loading-sm sm:loading-md lg:loading-lg"></span>
                             </>
                         ) : (
                             <span className="text-xs sm:text-sm 2xl:text-base">Login</span>
                         )}
                     </button>
-
                 </form>
 
                 <p className="text-gray-300 text-xs sm:text-sm text-center mt-4">

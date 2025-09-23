@@ -1,7 +1,8 @@
+import axios from "axios";
 import { useState } from "react";
 import { FaUser, FaEnvelope, FaLock, FaUserShield } from "react-icons/fa";
 import { toast } from "react-toastify";
-import api from "../api/axios.js";
+
 
 const Register = () => {
     const [formData, setFormData] = useState({
@@ -19,11 +20,31 @@ const Register = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        const emailRegex = /^\S+@\S+\.\S+$/;
+        if (!emailRegex.test(formData.email)) {
+            toast.error("Please enter a valid email address");
+            return;
+        }
+
+        if (formData.password.length < 6) {
+            toast.error("Password must be at least 6 characters");
+            return;
+        }
+
+        if (formData.name.trim().length < 2) {
+            toast.error("Name must be at least 2 characters");
+            return;
+        }
         setLoading(true);
 
         try {
-            await api.post("/user/register", formData);
-            toast.success(" Registered Successfully!");
+            await axios.post(
+                "http://localhost:8000/api/user/register",
+                formData,
+                { withCredentials: true }
+            );
+            toast.success("Registered Successfully!");
             setFormData({ name: "", email: "", password: "", role: "employee" });
         } catch {
             toast.error("Registration Failed");

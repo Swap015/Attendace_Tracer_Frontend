@@ -9,8 +9,9 @@ import EmployeeDashboard from "./pages/EmployeeDasboard";
 import AdminDashboard from "./pages/AdminDashboard";
 import About from "./pages/static-pages/About";
 import Contact from "./pages/static-pages/Contact";
-import UserProvider from "./components/context/UserProvider.jsx";
 import NotFound from "./pages/static-pages/NotFound.jsx";
+import UserProvider from "./components/context/UserProvider.jsx";
+
 
 function App() {
 
@@ -19,7 +20,7 @@ function App() {
       <BrowserRouter>
         <div className="flex flex-col min-h-screen bg-gradient-to-br from-indigo-900 via-purple-700 to-blac ">
 
-          {/* Header */}
+          {/*--------------------- Header ------------------------*/}
           <Header />
 
           {/* Main Content */}
@@ -39,7 +40,7 @@ function App() {
             </div>
           </main>
 
-          {/* Footer */}
+          {/*--------------------- Footer---------------------*/}
           <Footer />
 
           <ToastContainer
@@ -55,7 +56,7 @@ function App() {
             theme="light"
             transition={Bounce}
             toastClassName="custom-toast"
-            bodyClassName="custom-toast-body"
+            bodyClassName="custom-toast-body text-base sm:text-sm xs:text-xs"
             progressClassName="custom-progress"
           />
         </div>
