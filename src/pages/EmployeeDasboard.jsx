@@ -98,10 +98,10 @@ const EmployeeDashboard = () => {
                                     <p className="text-xs lg:text-sm text-gray-300 border-b border-white/50 pb-1 mb-2">
                                         {a.date ? format(new Date(a.date), "d MMM yyyy") : "—"}
                                     </p>
-                                    <p className="text-sm font-medium">
+                                    <p className="text-sm lg:text-base 3xl:text-lg font-medium">
                                         Check-In: {a.checkIn ? new Date(a.checkIn).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : "—"}
                                     </p>
-                                    <p className="text-xs lg:text-sm">
+                                    <p className="lg:text-base 3xl:text-lg ">
                                         Check-Out: {a.checkOut ? new Date(a.checkOut).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : "—"}
                                     </p>
                                 </div>
@@ -109,7 +109,7 @@ const EmployeeDashboard = () => {
                                 <div className="text-right">
                                     <p
                                         className={`capitalize font-semibold ${a.status === "present"
-                                            ? "text-green-400 text-sm border-b border-white/50 pb-1 mb-2"
+                                            ? "text-green-400 text-sm lg:text-base 2xl:text-lg border-b border-white/50 pb-1 mb-2"
                                             : a.status === "on-leave"
                                                 ? "text-yellow-400"
                                                 : "text-red-400"
@@ -117,7 +117,7 @@ const EmployeeDashboard = () => {
                                     >
                                         {a.status}
                                     </p>
-                                    <p className="text-sm text-center">
+                                    <p className="text-sm lg:text-base 2xl:text-lg text-center font-bold">
                                         {a.isLate ? "Late" : "On Time"}
                                     </p>
                                 </div>
@@ -146,12 +146,13 @@ const EmployeeDashboard = () => {
                                 <input
                                     id="from"
                                     type="date"
+                                    min={new Date().toISOString().split("T")[0]}
                                     value={leaveForm.from}
                                     onChange={(e) =>
                                         setLeaveForm({ ...leaveForm, from: e.target.value })
                                     }
                                     required
-                                    className="w-full px-3 py-2 rounded-lg bg-white/20 text-white focus:outline-none focus:ring-2 focus:ring-indigo-400"
+                                    className="w-full px-3 py-2 rounded-lg bg-white/20 text-white focus:outline-none focus:ring-2 focus:ring-indigo-400 text-sm lg:text-base 2xl:text-lg"
                                 />
                             </div>
 
@@ -162,12 +163,13 @@ const EmployeeDashboard = () => {
                                 <input
                                     id="to"
                                     type="date"
+                                    min={leaveForm.from || new Date().toISOString().split("T")[0]}
                                     value={leaveForm.to}
                                     onChange={(e) =>
                                         setLeaveForm({ ...leaveForm, to: e.target.value })
                                     }
                                     required
-                                    className="w-full px-3 py-2 rounded-lg bg-white/20 text-white focus:outline-none focus:ring-2 focus:ring-indigo-400"
+                                    className="w-full px-3 py-2 rounded-lg bg-white/20 text-white focus:outline-none focus:ring-2 focus:ring-indigo-400 text-sm lg:text-base 2xl:text-lg"
                                 />
                             </div>
 
@@ -182,7 +184,7 @@ const EmployeeDashboard = () => {
                                     onChange={(e) =>
                                         setLeaveForm({ ...leaveForm, reason: e.target.value })
                                     }
-                                    className="w-full px-3 py-2 rounded-lg bg-white/20 text-white focus:outline-none focus:ring-2 focus:ring-indigo-400"
+                                    className="w-full px-3 py-2 rounded-lg bg-white/20 text-white focus:outline-none focus:ring-2 focus:ring-indigo-400 text-base"
                                 />
                             </div>
 
@@ -207,7 +209,7 @@ const EmployeeDashboard = () => {
                             >
                                 <div>
                                     <p className="text-sm">📅 {l.from} → {l.to}</p>
-                                    <p className="text-sm text-gray-300 pt-2 pl-2">Reason: {l.reason}</p>
+                                    <p className="text-sm lg:text-base 2xl:text-lg text-gray-300 pt-2 pl-2 ">Reason: {l.reason}</p>
                                 </div>
                                 <p
                                     className={`font-semibold self-center ${l.status === "approved"

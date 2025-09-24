@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { FiMenu, FiX } from "react-icons/fi";
 import { FaUserCircle } from "react-icons/fa";
-import UserContext from "../components/context/UserContext.jsx"; 
+import UserContext from "../components/context/UserContext.jsx";
 
 function Header() {
     const { user, loading, logout } = useContext(UserContext);
@@ -21,7 +21,7 @@ function Header() {
     return (
         <header className="bg-white/10 backdrop-blur-lg shadow-lg sticky top-0 z-50 border-b border-white/20">
             <div className="max-w-7xl mx-auto px-6 py-3 flex justify-between items-center">
-                <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-indigo-100 tracking-wide">
+                <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-indigo-100 tracking-wide cursor-pointer" onClick={() => navigate("/login")}>
                     WorkTrace
                 </h2>
 
